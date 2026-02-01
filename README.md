@@ -8,7 +8,7 @@ Promptly Photo to **aplikacja webowa z AI asystentem** specjalizującym się w *
 
 **Cel**: Szybkie stworzenie MVP (2-3 tygodnie), potem iteracyjna rozbudowa o nowe feature'y.
 
-**Zastosowanie**: Projekt portfolio dla początkującego programisty - demonstracja umiejętności: React, TypeScript, API integration, deployment, UI/UX.
+**Zastosowanie**: Projekt portfolio dla programisty - demonstracja umiejętności: React, TypeScript, API integration, deployment, UI/UX.
 
 ### Fazy Rozwoju
 
