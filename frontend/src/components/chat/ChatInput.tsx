@@ -5,7 +5,7 @@ export function ChatInput() {
   return (
     <>
       <div className="border-t p-4 flex gap-2">
-        <Textarea className="min-h-[80px] resize-none" />
+        <Textarea className="min-h-20 resize-none" />
         <Button className="self-end" />
       </div>
     </>
