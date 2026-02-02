@@ -1,11 +1,20 @@
-export function Message() {
+import type { Message as MessageType } from "@/types/chat";
+import iconAssitant from "../../assets/icon-assistant.svg";
+import iconPromptly from "../../assets/icon-promptly.svg";
+import iconUser from "../../assets/icon-user.svg";
+
+export function Message({ id, role, content, timestamp }: MessageType) {
   return (
     <>
-      <div className="max-w-[80%] rounded-lg px-3 py-2 text-sm">
-        Qui delectus distinctio est occaecati. Sit eveniet quasi itaque est. Qui
-        voluptatem eum facilis rem labore ex. Quia doloremque fugit officia
-        dolorem consequatur. Necessitatibus recusandae beatae qui tempora quasi
-        ut est.
+      <div>
+        <div>{role}</div>
+        <div>
+          <p>
+            {id}
+            {content}
+          </p>
+          <p>{timestamp}</p>
+        </div>
       </div>
     </>
   );
