@@ -2,7 +2,7 @@ export interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
-  timestamp: string;
+  timestamp: Date;
 }
 
 export interface ChatState {
