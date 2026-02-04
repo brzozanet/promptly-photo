@@ -706,21 +706,14 @@ export function ChatWindow() {
       <div className="bg-linear-to-r from-purple-600 to-blue-600 text-white p-4">
         <h1 className="text-xl font-bold">📸 Promptly Photo - AI Photography Assistant</h1>
         <p className="text-sm opacity-90">Zapytaj o fotografię, kompozycję, sprzęt...</p>
-      ChatWindow renderuje MessageList + ChatInput
-- [ ] Mock wysyłania wiadomości działa
-- [ ] Layout: lista wiadomości na górze, input na dole
+        [...]
 
----
-
-## 🎯 Task 1.12: Pages (About, How It Works, Contact) (0.7
-  );
-}
 ```
 
 ### Sprawdzenie
 
-- [ ] Komponent kompiluje się
-- [ ] Logika wysyłania mockowanych wiadomości działa
+- [x] Komponent kompiluje się
+- [x] Logika wysyłania mockowanych wiadomości działa
 
 ---
 

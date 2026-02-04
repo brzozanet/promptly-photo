@@ -145,7 +145,7 @@ promptly-photo-ai/
 - [x] Task 1.8: Layout Components (Header, Layout) (0.5h)
 - [x] Task 1.9: Chat Components - Message & MessageList (0.75h)
 - [x] Task 1.10: Chat Components - ChatInput (0.5h)
-- [ ] Task 1.11: Chat Components - ChatWindow (połączenie wszystkiego) (0.5h)
+- [x] Task 1.11: Chat Components - ChatWindow (połączenie wszystkiego) (0.5h)
 - [ ] Task 1.12: Pages (About, How It Works, Contact) (0.75h)
 - [ ] Task 1.13: Routing & App.tsx - finalna integracja (0.5h)
 - [ ] Task 1.14: Chat Services - template (0.5h)
