@@ -5,8 +5,10 @@ export function ChatWindow() {
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col">
       <MessageList />
-      <div className="sticky bottom-0 border-t bg-background/80 backdrop-blur">
+      <div className="sticky">
+        qwerty
         <ChatInput />
+        asdfg
       </div>
     </div>
   );
