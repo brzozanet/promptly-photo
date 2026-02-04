@@ -639,9 +639,9 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
 
 ### Sprawdzenie
 
-- [ ] Komponent kompiluje się
-- [ ] Enter wysyła wiadomość, Shift+Enter dodaje nową linię
-- [ ] Button disabled gdy input pusty lub loading
+- [x] Komponent kompiluje się
+- [x] Enter wysyła wiadomość, Shift+Enter dodaje nową linię
+- [x] Button disabled gdy input pusty lub loading
 
 ---
 

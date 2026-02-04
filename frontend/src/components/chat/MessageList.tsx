@@ -16,8 +16,8 @@ export function MessageList() {
       endRef.current?.scrollIntoView({ behavior: "smooth" });
     },
     [
-      // TODO: tutaj dolecowo messages
-    ]
+      // TODO: tutaj dolecowo [messages]
+    ],
   );
 
   return (
@@ -79,9 +79,3 @@ export function MessageList() {
     </>
   );
 }
-
-//TODO:
-// Pobieranie messages z useChatStore
-// Mapowaanie tablicy Message
-// ScrollArea (scrollowanie wiadomości)
-// Obsługa pustej listy
