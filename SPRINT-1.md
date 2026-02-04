@@ -799,8 +799,8 @@ export async function sendMessage(request: ChatRequest): Promise<ChatResponse> {
 
 ### Sprawdzenie
 
-- [ ] Plik utworzony ze szablonami funkcji
-- [ ] Przygotowany do rozszerzenia w Sprint 2
+- [x] Plik utworzony ze szablonami funkcji
+- [x] Przygotowany do rozszerzenia w Sprint 2
 
 ---
 
