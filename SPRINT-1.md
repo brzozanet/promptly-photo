@@ -583,25 +583,12 @@ export function MessageList({ messages }: MessageListProps) {
 }
 ```
 
-### Sprawdzenie
-
-- [ ] Komponent kompiluje się
-- [ ] Obsługuje pustą listę
-
----
-
-## 🎯 Task 1.9: Komponenty UI - ChatInput (0.5h)
-
-### Cel
-
-Input do wpisywania wiadomości.
-
-### Plik: `frontend/src/components/ChatInput.tsx`
+### Plik 3: `frontend/src/components/chat/ChatInput.tsx`
 
 ```typescript
 import { useState } from 'react';
-import { Button } from './ui/button';
-import { Textarea } from './ui/textarea';
+import { Button } from '../ui/button';
+import { Textarea } from '../ui/textarea';
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -652,7 +639,13 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
 
 ### Sprawdzenie
 
-- [ ] Input po1: Chat Components - ChatWindow (0.5h)
+- [ ] Komponent kompiluje się
+- [ ] Enter wysyła wiadomość, Shift+Enter dodaje nową linię
+- [ ] Button disabled gdy input pusty lub loading
+
+---
+
+## 🎯 Task 1.11: Chat Components - ChatWindow (0.5h)
 
 ### Cel
 
@@ -731,11 +724,11 @@ export function ChatWindow() {
 
 ---
 
-## 🎯 Task 1.11: Integracja - App.tsx (0.5h)
+## 🎯 Task 1.12: Pages (About, How It Works, Contact) (0.75h)
 
 ### Cel
 
-Połączenie wszystkiego w głównym komponencie.
+Stworzenie dodatkowych stron informacyjnych.
 
 ### Plik: `frontend/src/App.tsx`
 
@@ -763,7 +756,15 @@ export default App;
 
 ---
 
-## 🎯 Task 1.12: Chat Services - Setup (0.5h)
+## 🎯 Task 1.13: Routing & App.tsx - Finalna Integracja (0.5h)
+
+### Cel
+
+Połączenie wszystkiego w głównym komponencie z routingiem.
+
+---
+
+## 🎯 Task 1.14: Chat Services - Setup (0.5h)
 
 ### Cel
 
@@ -810,7 +811,7 @@ export async function sendMessage(request: ChatRequest): Promise<ChatResponse> {
 
 ---
 
-## 🎯 Task 1.13: Environment Variables (0.25h)
+## 🎯 Task 1.15: Environment Variables (0.25h)
 
 ### Cel
 
@@ -833,7 +834,7 @@ VITE_API_URL=http://localhost:3001
 
 ---
 
-## 🎯 Task 1.14: Testing & Polish (0.5h)
+## 🎯 Task 1.16: Testing & Polish (0.5h)
 
 ### Cel
 
@@ -858,7 +859,7 @@ Testowanie całego flow'u UI.
 
 ---
 
-## 🎯 Task 1.15: Deployment Setup - Vercel (0.5h)
+## 🎯 Task 1.17: Deployment Setup - Vercel (0.5h)
 
 ### Cel
 
