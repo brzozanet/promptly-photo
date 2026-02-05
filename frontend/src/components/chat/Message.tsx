@@ -27,7 +27,9 @@ export function Message({ role, content, timestamp }: Message) {
             : "bg-linear-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-foreground"
         }`}
       >
-        <p className="whitespace-pre-wrap text-left mb-3">{content}</p>
+        <p className="whitespace-pre-wrap text-left mb-3 text-base">
+          {content}
+        </p>
         <div className="flex items-center gap-1">
           <img
             src={iconClock8}

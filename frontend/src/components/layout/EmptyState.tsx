@@ -16,8 +16,7 @@ export function EmptyState() {
 
         <Typewriter
           words={[
-            "ustawić aparat dla początkujących?",
-            "robić ostre zdjęcia bez poruszenia?",
+            "robić ostre zdjęcia?",
             "fotografować ludzi w plenerze?",
             "upiększyć zdjęcia z wakacji?",
             "uzyskać rozmyte tło na zdjęciu?",
@@ -40,6 +39,7 @@ export function EmptyState() {
           deleteSpeed={20}
           loop={true}
           cursor={true}
+          cursorBlinking={true}
         />
       </h2>
       <div className="sticky">
