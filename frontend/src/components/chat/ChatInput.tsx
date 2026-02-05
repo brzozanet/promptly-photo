@@ -7,11 +7,10 @@ import { loremIpsum } from "lorem-ipsum";
 
 export function ChatInput() {
   const [input, setInput] = useState<string>("");
-  const messages = useChatStore((state) => state.messages);
   const { addMessage } = useChatStore();
-  const isLoading = false;
-
+  const messages = useChatStore((state) => state.messages);
   const randomText = loremIpsum({ count: 7, units: "sentences" });
+  const isLoading = false;
 
   const sendPrompt = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,7 +20,6 @@ export function ChatInput() {
       content: input.trim(),
       timestamp: new Date().toISOString(),
     });
-    console.log("click + send:", input);
     setInput("");
     fakeAssistantReply();
   };
@@ -71,4 +69,5 @@ export function ChatInput() {
   );
 }
 
-//TODO: npm uninstall lorem-ipsum
+// TODO: npm uninstall lorem-ipsum
+// TODO: send by Enter hit

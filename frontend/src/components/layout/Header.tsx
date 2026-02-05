@@ -1,9 +1,22 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import { useChatStore } from "@/store/chatStore";
 import iconPromptly from "../../assets/icon-promptly.svg";
 
 export function Header() {
   const { clearMessages } = useChatStore();
+  const messages = useChatStore((store) => store.messages);
   const handleNewChatButtonClick = () => {
     clearMessages();
   };
@@ -22,14 +35,37 @@ export function Header() {
         </div>
         <nav>
           <ul className="flex flex-row gap-6 items-center font-bold">
-            <li>
-              <button
-                onClick={handleNewChatButtonClick}
-                className="bg-blue-500 shadow-lg shadow-blue-500/50 px-4 py-2 rounded-md text-white"
-              >
-                Nowa rozmowa
-              </button>
-            </li>
+            {messages.length !== 0 ? (
+              <li>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button className="bg-blue-500 shadow-lg shadow-black-500/50 hover:bg-emerald-600 disabled:opacity-50 px-6 py-4 rounded-md font-bold self-end cursor-pointer disabled:cursor-not-allowed">
+                      Nowa rozmowa
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Czy na pewno?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Rozpoczęcie nowej rozmowy spowoduje nieodwracalne
+                        usunięcie aktualnej. Historia rozmów będzie dostępna w
+                        kolejnej wersji aplikacji 😀
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>
+                        Wróć do aktualnej rozmowy
+                      </AlertDialogCancel>
+                      <AlertDialogAction onClick={handleNewChatButtonClick}>
+                        Tak, zacznij nową rozmowę
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </li>
+            ) : (
+              ""
+            )}
             <li>
               <NavLink to="#">O projekcie</NavLink>
             </li>
@@ -42,5 +78,3 @@ export function Header() {
     </header>
   );
 }
-
-// TODO: Alert Dialog after button click
