@@ -15,6 +15,7 @@ export function EmptyState() {
             "fotografować krajobraz?",
             "robić zdjęcia nocne?",
             "dbać o aparat zimą?",
+            "upiększyć zdjęcia z wakacji?",
             "używać statywu?",
             "ustawiać przysłonę do portretu?",
             "szukać inspiracji do zdjęć?",
