@@ -350,7 +350,8 @@ export interface ChatState {
 
 ### Cel
 
-Skonfigurowanie state managementu do zarządzania historią czatu (w `frontend/`).
+Skonfigurowanie state managementu do zarządzania historią czatu (w `frontend/`).  
+**Phase 1 Feature**: Historia aktywnego czatu przechowywana w **localStorage** (przetrwa refresh) za pomocą Zustand persist middleware.
 
 ### Instalacja
 
@@ -362,36 +363,60 @@ npm install zustand
 
 ### Plik: `frontend/src/store/chatStore.ts`
 
+**Wersja z localStorage (Phase 1)**:
+
 ```typescript
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { ChatState, Message } from "../types/chat";
 
-export const useChatStore = create<ChatState>((set) => ({
-  messages: [],
-  isLoading: false,
-  error: null,
-
-  addMessage: (message: Message) =>
-    set((state) => ({
-      messages: [...state.messages, message],
-    })),
-
-  clearMessages: () =>
-    set({
+export const useChatStore = create<ChatState>()(
+  persist(
+    (set) => ({
       messages: [],
+      isLoading: false,
       error: null,
+
+      addMessage: (message: Message) =>
+        set((state) => ({
+          messages: [...state.messages, message],
+        })),
+
+      clearMessages: () =>
+        set({
+          messages: [],
+          error: null,
+        }),
+
+      setLoading: (loading: boolean) => set({ isLoading: loading }),
+
+      setError: (error: string | null) => set({ error }),
     }),
-
-  setLoading: (loading: boolean) => set({ isLoading: loading }),
-
-  setError: (error: string | null) => set({ error }),
-}));
+    {
+      name: "chat-storage", // Klucz w localStorage
+    },
+  ),
+);
 ```
+
+**Co to daje?**
+
+- ✅ Historia aktywnego czatu **przetrwa refresh** przeglądarki
+- ✅ Dane zapisywane automatycznie w `localStorage` pod kluczem `"chat-storage"`
+- ✅ Użytkownik nie traci rozmowy po przypadkowym zamknięciu karty
+- ❌ **Tylko aktywny czat** (bez historii wielu czatów - to Phase 2 z bazą danych)
+
+**Różnica Phase 1 vs Phase 2**:
+
+- **Phase 1** (localStorage): 1 rozmowa, lokalnie w przeglądarce, bez kont użytkowników
+- **Phase 2+** (DB): Wiele rozmów, synchronizacja między urządzeniami, wymagane konto
 
 ### Sprawdzenie
 
 - [x] Plik utworzony bez błędów
 - [x] Store eksportuje się prawidłowo
+- [x] `persist` middleware skonfigurowany z kluczem `"chat-storage"`
+- [x] Po dodaniu wiadomości i refresh strony - dane się zachowują
 
 ---
 
@@ -818,9 +843,9 @@ VITE_API_URL=http://localhost:3001
 
 ### Sprawdzenie
 
-- [ ] Plik `frontend/.env.local` utworzony
-- [ ] Nie jest śledzony przez Git (sprawdź `.gitignore`)
-- [ ] Dodaj do `frontend/.gitignore` (jeśli nie ma):
+- [x] Plik `frontend/.env.local` utworzony
+- [x] Nie jest śledzony przez Git (sprawdź `.gitignore`)
+- [x] Dodaj do `frontend/.gitignore` (jeśli nie ma):
   ```
   .env.local
   ```
@@ -835,20 +860,20 @@ Testowanie całego flow'u UI.
 
 ### Testy manualne
 
-- [ ] Aplikacja ładuje się bez błędów
-- [ ] Input pozwala wpisywać tekst
-- [ ] Można wysyłać wiadomości (mockowe)
-- [ ] Wiadomości pojawiają się na czacie
-- [ ] Auto-scroll działa (nowe wiadomości na dole)
-- [ ] Design responsywny (test na mobile w DevTools)
-- [ ] Ciemna paleta kolorów jest spójna
-- [ ] Brak błędów TypeScript (`npm run build`)
+- [x] Aplikacja ładuje się bez błędów
+- [x] Input pozwala wpisywać tekst
+- [x] Można wysyłać wiadomości (mockowe)
+- [x] Wiadomości pojawiają się na czacie
+- [x] Auto-scroll działa (nowe wiadomości na dole)
+- [x] Design responsywny (test na mobile w DevTools)
+- [x] Ciemna paleta kolorów jest spójna
+- [x] Brak błędów TypeScript (`npm run build`)
 
 ### Polishing
 
-- [ ] Dodaj favicona w `index.html`
-- [ ] Zmień title na "Promptly Photo AI"
-- [ ] Sprawdź, czy font jest czytelny na mobile
+- [x] Dodaj favicona w `index.html`
+- [x] Zmień title na "Promptly Photo AI"
+- [x] Sprawdź, czy font jest czytelny na mobile
 
 ---
 

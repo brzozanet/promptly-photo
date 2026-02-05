@@ -32,15 +32,15 @@ Promptly Photo to **aplikacja webowa z AI asystentem** specjalizującym się w *
 
 **example.ts (Terminal)** → **Promptly Photo (Web)**
 
-| Aspekt            | example.ts (Terminal)  | Promptly Photo (Web)         |
-| ----------------- | ---------------------- | ---------------------------- |
-| **Interface**     | CLI (readline)         | React UI (Shadcn/ui)         |
-| **Historia**      | `previous_response_id` | Zustand store + API          |
-| **Model**         | `gpt-5-nano`           | `gpt-4`, `gpt-4o`            |
-| **System Prompt** | Brak                   | Photography Expert           |
-| **Deployment**    | Lokalnie (Node.js)     | Vercel (FE) + Render (BE)    |
-| **Użytkownicy**   | 1 sesja                | Multi-user (Phase 2+)        |
-| **Persystencja**  | Brak                   | Phase 1: sesja, Phase 2+: DB |
+| Aspekt            | example.ts (Terminal)  | Promptly Photo (Web)                                          |
+| ----------------- | ---------------------- | ------------------------------------------------------------- |
+| **Interface**     | CLI (readline)         | React UI (Shadcn/ui)                                          |
+| **Historia**      | `previous_response_id` | Zustand store + API                                           |
+| **Model**         | `gpt-5-nano`           | `gpt-4`, `gpt-4o`                                             |
+| **System Prompt** | Brak                   | Photography Expert                                            |
+| **Deployment**    | Lokalnie (Node.js)     | Vercel (FE) + Render (BE)                                     |
+| **Użytkownicy**   | 1 sesja                | Multi-user (Phase 2+)                                         |
+| **Persystencja**  | Brak                   | Phase 1: localStorage (aktywny czat), Phase 2+: DB (historia) |
 
 **Kluczowa koncepcja z example.ts**:
 
@@ -149,9 +149,9 @@ promptly-photo-ai/
 - [x] Task 1.12: Pages (About, How It Works, Contact) (0.75h)
 - [x] Task 1.13: Routing & App.tsx - finalna integracja (0.5h)
 - [x] Task 1.14: Chat Services - template (0.5h)
-- [ ] Task 1.15: Environment Variables (0.25h)
-- [ ] Task 1.16: Testing & Polish (0.5h)
-- [ ] Task 1.17: Deployment Setup - Vercel (0.5h)
+- [x] Task 1.15: Environment Variables (0.25h)
+- [x] Task 1.16: Testing & Polish (0.5h)
+- [x] Task 1.17: Deployment Setup - Vercel (0.5h)
 
 **Output**: Mockowany czat działa lokalnie, gotowy na integrację z backendem
 
@@ -271,16 +271,16 @@ Tak! W `backend/src/routes/chat.ts` zmień pole `model`. Dostępne: `gpt-4o`, `g
 
 - Wysyłanie pytań do Photography AI
 - Odbieranie porad fotograficznych
-- Historia rozmowy (w ramach sesji)
+- Historia aktywnego czatu (localStorage - przetrwa refresh)
 - UI podobne do ChatGPT (dark mode, responsywne)
 - System prompt zapewnia spójne, ekspertowe odpowiedzi
 
 ❌ **Poza Scope - Phase 1**
 
 - Konta użytkowników
-- Persystencja danych
-- Historia chatów
-- Tworzenie/zapisywanie rozmów
+- Persystencja w bazie danych
+- Historia wielu czatów (sidebar, przełączanie)
+- Tworzenie/zarządzanie wieloma rozmowami
 
 ---
 
@@ -357,7 +357,7 @@ W naszym projekcie system prompt definiuje:
 
 ## 📚 Techniczne Notatki
 
-1. **State Management**: Historia czatu będzie przechowywana lokalnie w Zustand. W Phase 1 resetuje się po refresh strony.
+1. **State Management**: Historia aktywnego czatu przechowywana w Zustand + localStorage (przetrwa refresh). Phase 2 dodaje bazę danych dla historii wielu czatów.
 2. **HTTP Client**: MVP używa Fetch API. **Axios planowany do Sprint 2+** (dodatkowy learning).
 3. **System Prompt**: Konfigurowany w backend `.env` - łatwo zmienić tematykę asystenta (np. na "Fitness Coach" czy "Web Dev Expert")
 4. **Error Handling**: Graceful error handling z user-friendly komunikatami.
