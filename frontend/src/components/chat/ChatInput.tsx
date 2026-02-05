@@ -53,14 +53,14 @@ export function ChatInput() {
     <>
       <form className="p-4 flex gap-2" onSubmit={sendPrompt}>
         <Textarea
-          className="min-h-30 resize-none backdrop-blur text-white"
+          className="min-h-30 resize-none backdrop-blur text-white text-lg! md:text-lg! placeholder:text-lg"
           placeholder="Pytaj o fotografię... (Shift+Enter = nowa linia)"
           disabled={isLoading}
           value={input}
           onChange={(event) => setInput(event?.target.value)}
         />
         <Button
-          className="w-24 bg-blue-500 shadow-lg shadow-blue-500/50 px-4 py-2 rounded-md font-bold self-end"
+          className="w-24 bg-blue-500 shadow-lg shadow-black-500/50 hover:bg-emerald-500 disabled:opacity-50 px-4 py-2 rounded-md font-bold self-end cursor-pointer disabled:cursor-not-allowed"
           disabled={!isInputValid}
           type="submit"
         >
