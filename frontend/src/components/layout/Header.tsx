@@ -10,13 +10,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useChatStore } from "@/store/chatStore";
 import iconPromptly from "../../assets/icon-promptly.svg";
 
 export function Header() {
-  const { clearMessages } = useChatStore();
+  const location = useLocation();
   const messages = useChatStore((store) => store.messages);
+  const { clearMessages } = useChatStore();
   const handleNewChatButtonClick = () => {
     clearMessages();
   };
@@ -37,7 +38,7 @@ export function Header() {
         </div>
         <nav>
           <ul className="flex flex-row gap-6 items-center font-bold">
-            {messages.length !== 0 ? (
+            {messages.length !== 0 && location.pathname !== "/how.html" ? (
               <li>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
@@ -68,6 +69,19 @@ export function Header() {
             ) : (
               ""
             )}
+
+            {location.pathname === "/how.html" ? (
+              <li>
+                <NavLink to="/">
+                  <button className="bg-blue-500 shadow-lg shadow-black-500/50 hover:bg-emerald-600 disabled:opacity-50 px-6 py-2 rounded-md font-bold self-end cursor-pointer disabled:cursor-not-allowed text-white text-sm">
+                    Wróć do rozmowy
+                  </button>
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
+
             <li>
               <NavLink to="#">O projekcie</NavLink>
             </li>
