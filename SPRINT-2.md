@@ -2,8 +2,8 @@
 
 > 🎯 **Część Phase 1 MVP**: Stworzenie backend proxy do OpenAI API
 
-**Timeframe**: 1 dzień (4-5h pracy efektywnej)  
-**Cel końcowy**: Działający backend Express.js, który pośredniczy między frontendem a OpenAI API
+**Timeframe**: 1 dzień (4-5h pracy efektywnej).
+**Cel końcowy**: Działający backend Express.js, który pośredniczy między frontendem a OpenAI API.
 
 ---
 
@@ -1687,8 +1687,8 @@ Po Sprint 2 możesz dodać do CV:
 ---
 
 **Sprint Leader**: [Twoje imię]  
-**Data rozpoczęcia**: ****\_\_\_****  
-**Data zakończenia**: ****\_\_\_****  
+**Data rozpoczęcia**: \***\*\_\_\_\*\***  
+**Data zakończenia**: \***\*\_\_\_\*\***  
 **Status**: 🟡 W trakcie / ✅ Ukończony
 
 **Commit message po zakończeniu**:
