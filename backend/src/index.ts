@@ -1,12 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import chalk from "chalk";
 // import { chatRouter } from "./routes/chat";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || "3001";
 
 const corsOptions = {
   origin: process.env.FRONTEND_URL,
@@ -27,7 +28,10 @@ app.get("/", cors(corsOptions), (request, response) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`➜ Example app listening on 🔗 http://localhost:${PORT}`);
+  console.log(`
+    ${chalk.red.bold("EXPRESS")} ${chalk.gray("ready server")} ${chalk.bold("backend")} 
+    ${chalk.red.bold("➜")} ${chalk.bold("Local: ")} ${chalk.cyan("http://localhost:")}${chalk.cyan.bold(PORT)}${chalk.cyan("/")}
+    `);
 });
 
 //
