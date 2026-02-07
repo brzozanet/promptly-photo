@@ -9,7 +9,7 @@ export interface ChatResponse {
   timestamp: string;
 }
 
-export interface ChatError {
+export interface ErrorResponse {
   error: string;
   details?: string;
 }
