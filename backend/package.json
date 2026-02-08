@@ -2,16 +2,16 @@
   "name": "promptly-photo-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "main": "index.ts",
   "scripts": {
-    "dev": "nodemon --exec tsx src/index.ts",
+    "dev": "nodemon --exec tsx src/routes/chat.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "chalk": "^5.6.2",
     "cors": "^2.8.6",
