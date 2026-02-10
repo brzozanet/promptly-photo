@@ -5,178 +5,61 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const chatRouter = Router();
+// NOTE: Konfiguracja OpenAI Client
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-chatRouter.post("/", async (request, response) => {
-  const { message, previousResponseId }: ChatRequest = request.body;
+const MODEL = process.env.OPENAI_MODEL;
+const SYSTEM_PROMPT = process.env.SYSTEM_PROMPT;
 
-  const chatRequest = await client.responses.create({
-    model: process.env.OPENAI_MODEL,
-    previous_response_id: previousResponseId,
-    input: [
-      {
-        role: "user",
-        content: message,
-      },
-      {
-        role: "system",
-        content: `${process.env.SYSTEM_PROMPT}`,
-      },
-    ],
-  });
+// NOTE: POST /api/chat - główny endpoint czatu
 
-  const chatResponse: ChatResponse = {
-    id: chatRequest.id,
-    message: chatRequest.output_text,
-    timestamp: new Date().toISOString(),
-  };
+export const chatRouter = Router();
 
-  response.send(chatResponse);
+chatRouter.post("/", async (request: Request, response: Response) => {
+  try {
+    const { message, previousResponseId }: ChatRequest = request.body;
+
+    if (!message || message.trim() === "") {
+      return response
+        .status(400)
+        .json({ error: "Message is required" } as ErrorResponse);
+    }
+
+    const chatRequest = await client.responses.create({
+      model: MODEL,
+      previous_response_id: previousResponseId,
+      input: [
+        {
+          role: "user",
+          content: message,
+        },
+        {
+          role: "system",
+          content: `${SYSTEM_PROMPT}`,
+        },
+      ],
+    });
+
+    const chatResponse: ChatResponse = {
+      id: chatRequest.id,
+      message: chatRequest.output_text,
+      timestamp: new Date().toISOString(),
+    };
+
+    response.send(chatResponse);
+  } catch (error) {
+    return response
+      .status(500)
+      .json({ error: "Server crashed succesfully 😵‍💫" } as ErrorResponse);
+  }
 });
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// TODO: Error handling
 
-// import { Router, Request, Response } from "express";
-// import { ChatRequest, ChatResponse, ErrorResponse } from "../types/chat";
-// import OpenAI from "openai";
-
-// const router = Router();
-
-// // NOTE: Konfiguracja OpenAI Client
-
-// const openai = new OpenAI({
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
-
-// const MODEL = process.env.OPENAI_MODEL;
-// const SYSTEM_PROMPT = process.env.SYSTEM_PROMPT;
-
-// // ═══════════════════════════════════════════════════════════
-// // POST /api/chat - główny endpoint czatu
-// // ═══════════════════════════════════════════════════════════
-
-// router.post("/", async (req: Request, res: Response) => {
-//   try {
-//     // 1. Odczytaj dane z request body
-//     const { message, previousResponseId }: ChatRequest = req.body;
-
-//     // 2. Walidacja - sprawdź czy wiadomość istnieje
-//     if (!message || message.trim() === "") {
-//       return res.status(400).json({
-//         error: "Message is required",
-//       } as ErrorResponse);
-//     }
-
-//     console.log(`📩 Otrzymano wiadomość: "${message}"`);
-//     if (previousResponseId) {
-//       console.log(`🔗 Historia: previous_response_id = ${previousResponseId}`);
-//     }
-
-//     // 3. Wywołanie OpenAI Responses API
-//     const response = await openai.responses.create({
-//       model: MODEL,
-//       // Używamy modifiedInput zamiast input, aby dodać system prompt
-//       modifiedInput: [
-//         {
-//           role: "system",
-//           content: SYSTEM_PROMPT,
-//         },
-//         {
-//           role: "user",
-//           content: message,
-//         },
-//       ],
-//       // Historia rozmowy - klucz do kontekstu (jak w example.ts)
-//       previous_response_id: previousResponseId || undefined,
-//     });
-
-//     // 4. Wyciągnij odpowiedź z OpenAI
-//     const aiMessage =
-//       response.output_text ||
-//       response.output?.[0]?.content ||
-//       "Brak odpowiedzi";
-
-//     console.log(`✅ Odpowiedź AI: "${aiMessage.substring(0, 50)}..."`);
-
-//     // 5. Zwróć odpowiedź do frontendu
-//     const chatResponse: ChatResponse = {
-//       id: response.id,
-//       message: aiMessage,
-//       timestamp: new Date().toISOString(),
-//     };
-
-//     return res.status(200).json(chatResponse);
 //   } catch (error: any) {
-//     // ═══════════════════════════════════════════════════════════
-//     // Error Handling - obsługa błędów
-//     // ═══════════════════════════════════════════════════════════
-
 //     console.error("❌ Błąd OpenAI API:", error);
 
 //     // Różne typy błędów OpenAI
@@ -207,10 +90,3 @@ chatRouter.post("/", async (request, response) => {
 //       details: error.message,
 //     } as ErrorResponse);
 //   }
-// });
-
-// // ═══════════════════════════════════════════════════════════
-// // Eksport routera
-// // ═══════════════════════════════════════════════════════════
-
-// export default router;
