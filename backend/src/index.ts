@@ -34,6 +34,14 @@ app.get("/health", (request, response) => {
   });
 });
 
+// NOTE: Conditional logging - szczegółowe logi tylko w development
+if (process.env.NODE_ENV === "development") {
+  app.use((request, response, next) => {
+    console.log(`${request.method} ${request.path}`);
+    next();
+  });
+}
+
 // NOTE: Start serwera
 
 app.listen(PORT, () => {
