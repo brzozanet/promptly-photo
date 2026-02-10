@@ -3,7 +3,6 @@ import { ChatRequest, ChatResponse, ErrorResponse } from "../types/chat";
 import OpenAI from "openai";
 import dotenv from "dotenv";
 
-// TODO: delete after integration with index
 dotenv.config();
 
 export const chatRouter = Router();
@@ -12,12 +11,12 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-chatRouter.post("/", async (req, res) => {
-  const { message, previousResponseId } = req.body;
-  console.log(message);
+chatRouter.post("/", async (request, response) => {
+  const { message, previousResponseId }: ChatRequest = request.body;
 
-  const response = await client.responses.create({
+  const chatRequest = await client.responses.create({
     model: process.env.OPENAI_MODEL,
+    previous_response_id: previousResponseId,
     input: [
       {
         role: "user",
@@ -30,7 +29,13 @@ chatRouter.post("/", async (req, res) => {
     ],
   });
 
-  res.send(response.output_text);
+  const chatResponse: ChatResponse = {
+    id: chatRequest.id,
+    message: chatRequest.output_text,
+    timestamp: new Date().toISOString(),
+  };
+
+  response.send(chatResponse);
 });
 
 //
