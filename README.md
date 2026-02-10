@@ -157,21 +157,21 @@ promptly-photo-ai/
 
 ---
 
-### Sprint 2: Backend Proxy (1 dzień) 👉 [SPRINT-2.md](./SPRINT-2.md) _(do utworzenia)_
+### Sprint 2: Backend Proxy (1 dzień) 👉 [SPRINT-2.md](./SPRINT-2.md)
 
 **Efekt końcowy**: Backend proxy do OpenAI API, działający lokalnie
 
-- [ ] Task 2.1: Inicjalizacja Express + TypeScript (0.5h)
-- [ ] Task 2.2: Struktura projektu backend (0.25h)
-- [ ] Task 2.3: Environment Variables + .env.example (0.25h)
-- [ ] Task 2.4: Endpoint `/api/chat` - proxy do OpenAI (1h)
+- [x] Task 2.1: Inicjalizacja Express + TypeScript (0.5h)
+- [x] Task 2.2: Struktura projektu backend (0.25h)
+- [x] Task 2.3: Environment Variables + .env.example (0.25h)
+- [x] Task 2.4: Endpoint `/api/chat` - proxy do OpenAI (1h)
   - Integracja z OpenAI SDK
   - System prompt fotograficzny (z README)
   - Obsługa `previous_response_id` dla historii (jak w `example.ts`)
-- [ ] Task 2.5: CORS configuration (0.25h)
-- [ ] Task 2.6: Error handling (0.5h)
-- [ ] Task 2.7: Testing lokalnie (Postman/curl) (0.5h)
-- [ ] Task 2.8: Deployment na Render (0.5h)
+- [x] Task 2.5: CORS configuration (0.25h)
+- [x] Task 2.6: Error handling (0.5h)
+- [x] Task 2.7: Testing lokalnie (Postman/curl) (0.5h)
+- [x] Task 2.8: Deployment na Render (0.5h)
 
 **Output**: Backend proxy online, testowany z Postman
 
