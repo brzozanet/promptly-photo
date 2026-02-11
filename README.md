@@ -181,13 +181,15 @@ promptly-photo-ai/
 
 **Efekt końcowy**: Działająca aplikacja na produkcji (Vercel + Render)
 
-- [ ] Task 3.1: Podłączenie Frontend → Backend (`chatService.ts`)
-- [ ] Task 3.2: Testowanie flow'u lokalnie
-- [ ] Task 3.3: UX improvements (loading states, error messages)
-- [ ] Task 3.4: Deploy Frontend na Vercel
-- [ ] Task 3.5: Konfiguracja environment variables produkcji
-- [ ] Task 3.6: End-to-end testing produkcji
-- [ ] Task 3.7: Final polish (favicon, meta tags, README update)
+- [ ] Task 3.1: Podłączenie Frontend → Backend (`chatService.ts`) (0.5h)
+- [ ] Task 3.2: Testowanie flow'u lokalnie (0.5h)
+- [ ] Task 3.3: Weryfikacja persystencji localStorage (0.25h)
+- [ ] Task 3.4: UX improvements (loading states, error messages, clear chat) (0.75h)
+- [ ] Task 3.5: Deploy Backend na Render (0.5h)
+- [ ] Task 3.6: Deploy Frontend na Vercel (0.5h)
+- [ ] Task 3.7: Konfiguracja environment variables produkcji (0.25h)
+- [ ] Task 3.8: End-to-end testing produkcji (0.5h)
+- [ ] Task 3.9: Final polish (favicon, meta tags, README update) (0.5h)
 
 **Output**: 🚀 **MVP ONLINE** - Promptly Photo AI dostępna publicznie
 
