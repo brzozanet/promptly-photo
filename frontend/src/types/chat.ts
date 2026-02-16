@@ -14,3 +14,14 @@ export interface ChatState {
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 }
+
+export interface ChatRequest {
+  message: string;
+  previousResponseId?: string;
+}
+
+export interface ChatResponse {
+  id: string; // to be used as previousResponseId
+  message: string;
+  timestamp: string;
+}

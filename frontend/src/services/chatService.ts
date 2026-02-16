@@ -1,29 +1,112 @@
-// // Placeholder na integrację z backendem w Sprint 2
+import type { ChatRequest } from "@/types/chat";
 
-// export interface ChatRequest {
-//   message: string;
-//   previousResponseId?: string;
-// }
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-// export interface ChatResponse {
-//   id: string;
-//   message: string;
-//   timestamp: string;
-// }
+/**
+ * NOTE: Wysyła wiadomość do backend API
+ * @param message - Wiadomość użytkownika
+ * @param previousResponseId - ID poprzedniej odpowiedzi (dla kontynuacji rozmowy)
+ * @returns Odpowiedź AI z ID i timestampem
+ */
 
-// export async function sendMessage(request: ChatRequest): Promise<ChatResponse> {
-//   // TODO: Sprint 2 - Integracja z backend API
-//   // const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chat`, {
-//   //   method: 'POST',
-//   //   headers: { 'Content-Type': 'application/json' },
-//   //   body: JSON.stringify(request),
-//   // });
-//   // return response.json();
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-//   // Mockowanie na razie
-//   return {
-//     id: Date.now().toString(),
-//     message: `[TODO] Rzeczywista odpowiedź z AI`,
-//     timestamp: new Date().toISOString(),
-//   };
-// }
+export async function sendMessage(
+  message: string,
+  previousResponseId?: string,
+): Promise<ChatResponse> {
+  try {
+    // Przygotuj payload
+    const requestBody: ChatRequest = {
+      message,
+      ...(previousResponseId && { previousResponseId }), // Dodaj tylko jeśli istnieje
+    };
+
+    console.log("[chatService] Wysyłam request:", requestBody);
+
+    // Wyślij POST request do backendu
+    const response = await fetch(`${API_URL}/api/chat`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    // Sprawdź czy response jest OK (status 200-299)
+    if (!response.ok) {
+      const errorData = await response
+        .json()
+        .catch(() => ({ error: "Unknown error" }));
+      throw new Error(
+        errorData.error || `HTTP ${response.status}: ${response.statusText}`,
+      );
+    }
+
+    // Parsuj JSON response
+    const data: ChatResponse = await response.json();
+    console.log("[chatService] Otrzymano odpowiedź:", data);
+
+    return data;
+  } catch (error) {
+    console.error("[chatService] Błąd:", error);
+
+    // Sprawdź typ błędu i rzuć user-friendly message
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      throw new Error(
+        "Nie można połączyć z serwerem. Sprawdź czy backend działa.",
+      );
+    }
+
+    throw error;
+  }
+}
