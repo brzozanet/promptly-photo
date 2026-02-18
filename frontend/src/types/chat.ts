@@ -11,7 +11,7 @@ export interface ChatState {
   error: string | null;
   addMessage: (message: Message) => void;
   clearMessages: () => void;
-  setLoading: (loading: boolean) => void;
+  setIsLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 }
 

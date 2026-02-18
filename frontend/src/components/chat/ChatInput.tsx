@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
+// import { Spinner } from "@/components/ui/spinner";
 import { useChatStore } from "@/store/chatStore";
 import { nanoid } from "nanoid";
 import { askAI } from "@/services/chatService";
 
 export function ChatInput() {
   const [input, setInput] = useState<string>("");
-  const { addMessage } = useChatStore();
+  const { addMessage, setIsLoading } = useChatStore();
   const messages = useChatStore((state) => state.messages);
+  const isLoading = useChatStore((state) => state.isLoading);
   // const randomText = loremIpsum({ count: 7, units: "sentences" });
-  const isLoading = false;
 
   const sendPrompt = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,6 +28,7 @@ export function ChatInput() {
       .at(-1);
 
     try {
+      setIsLoading(true);
       const { id, message, timestamp } = await askAI(
         input,
         lastAssistantMessage?.id,
@@ -65,6 +67,7 @@ export function ChatInput() {
 
   return (
     <>
+      {isLoading && "🕗🕗🕗"}
       <form className="p-4 flex gap-2" onSubmit={sendPrompt}>
         <Textarea
           className="min-h-30 resize-none backdrop-blur text-white text-lg! md:text-lg! placeholder:text-lg"
@@ -78,7 +81,7 @@ export function ChatInput() {
           disabled={!isInputValid}
           type="submit"
         >
-          {isLoading ? "Czekam..." : "Wyślij"}
+          {isLoading ? "Czekaj" : "Wyślij"}
         </Button>
       </form>
     </>
