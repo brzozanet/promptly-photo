@@ -3,16 +3,16 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { useChatStore } from "@/store/chatStore";
 import { nanoid } from "nanoid";
-import { loremIpsum } from "lorem-ipsum";
+import { askAI } from "@/services/chatService";
 
 export function ChatInput() {
   const [input, setInput] = useState<string>("");
   const { addMessage } = useChatStore();
   const messages = useChatStore((state) => state.messages);
-  const randomText = loremIpsum({ count: 7, units: "sentences" });
+  // const randomText = loremIpsum({ count: 7, units: "sentences" });
   const isLoading = false;
 
-  const sendPrompt = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const sendPrompt = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     addMessage({
       id: nanoid(),
@@ -21,32 +21,47 @@ export function ChatInput() {
       timestamp: new Date().toISOString(),
     });
     setInput("");
-    fakeAssistantReply();
+
+    const lastAssistantMessage = messages
+      .filter((message) => message.role === "assistant")
+      .at(-1);
+
+    try {
+      const { id, message, timestamp } = await askAI(
+        input,
+        lastAssistantMessage?.id,
+      );
+      addMessage({ id, role: "assistant", content: message, timestamp });
+    } catch (error) {
+      console.error("[ChatInput] błąd:", error);
+      throw new Error(
+        "Nie można połączyć z serwerem. Sprawdź czy backend działa.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // TODO: delete after integration with OennAI API
-  const fakeAssistantReply = () => {
-    setTimeout(() => {
-      addMessage({
-        id: nanoid(),
-        role: "assistant",
-        content: randomText,
-        timestamp: new Date().toISOString(),
-      });
-    }, 2000);
-  };
+  // NOTE: inactive after integration with OpenAI API
+  // const fakeAssistantReply = () => {
+  //   setTimeout(() => {
+  //     addMessage({
+  //       id: nanoid(),
+  //       role: "assistant",
+  //       content: randomText,
+  //       timestamp: new Date().toISOString(),
+  //     });
+  //   }, 2000);
+  // };
 
-  const lastUserMessage = messages
-    .filter((message) => message.role === "user")
-    .at(-1);
-
-  const isDuplicate = input.trim() === lastUserMessage?.content;
+  // NOTE: unnecessary, functionality too strict
+  // const lastUserMessage = messages
+  //   .filter((message) => message.role === "user")
+  //   .at(-1);
+  // const isDuplicate = input.trim() === lastUserMessage?.content;
 
   const isInputValid =
-    input.trim().length >= 3 &&
-    input.trim().length <= 5000 &&
-    !isLoading &&
-    !isDuplicate;
+    input.trim().length >= 3 && input.trim().length <= 5000 && !isLoading;
 
   return (
     <>
@@ -70,5 +85,4 @@ export function ChatInput() {
   );
 }
 
-// TODO: npm uninstall lorem-ipsum
 // TODO: send by Enter hit
