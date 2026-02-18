@@ -3,24 +3,16 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { useChatStore } from "@/store/chatStore";
 import { nanoid } from "nanoid";
-// import { loremIpsum } from "lorem-ipsum";
-import { askAI } from "@/services/chatService";
-import type { Message } from "@/types/chat";
+import { loremIpsum } from "lorem-ipsum";
 
 export function ChatInput() {
   const [input, setInput] = useState<string>("");
-  // TODO: get loading from state
-  const isLoading = false;
-
   const { addMessage } = useChatStore();
   const messages = useChatStore((state) => state.messages);
-  // const randomText = loremIpsum({ count: 7, units: "sentences" });
+  const randomText = loremIpsum({ count: 7, units: "sentences" });
+  const isLoading = false;
 
-  const lastAssistantMessage: Message | undefined = messages
-    .filter((message) => message.role === "assistant")
-    .at(-1);
-
-  const sendPrompt = async (event: React.SubmitEvent<HTMLFormElement>) => {
+  const sendPrompt = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     addMessage({
       id: nanoid(),
@@ -29,48 +21,32 @@ export function ChatInput() {
       timestamp: new Date().toISOString(),
     });
     setInput("");
-    // fakeAssistantReply();
-
-    try {
-      // setIsLoading(true);
-      const { id, message, timestamp } = await askAI(
-        input,
-        lastAssistantMessage?.id,
-      );
-      addMessage({
-        id,
-        role: "assistant",
-        content: message,
-        timestamp,
-      });
-    } catch (error) {
-      console.error("[ChatInput] error:", error);
-      throw new Error("Błąd podczas łączenia z backend");
-    } finally {
-      // setIsLoading(false);
-    }
+    fakeAssistantReply();
   };
 
-  // NOTE: inactive after integration with OpenAI API
-  // const fakeAssistantReply = () => {
-  //   setTimeout(() => {
-  //     addMessage({
-  //       id: nanoid(),
-  //       role: "assistant",
-  //       content: randomText,
-  //       timestamp: new Date().toISOString(),
-  //     });
-  //   }, 2000);
-  // };
+  // TODO: delete after integration with OennAI API
+  const fakeAssistantReply = () => {
+    setTimeout(() => {
+      addMessage({
+        id: nanoid(),
+        role: "assistant",
+        content: randomText,
+        timestamp: new Date().toISOString(),
+      });
+    }, 2000);
+  };
 
-  // NOTE:  not nesessary, too scrict condition
-  // const lastUserMessage: Message | undefined = messages
-  //   .filter((message) => message.role === "user")
-  //   .at(-1);
-  // const isDuplicate = input.trim() === lastUserMessage?.content;
+  const lastUserMessage = messages
+    .filter((message) => message.role === "user")
+    .at(-1);
+
+  const isDuplicate = input.trim() === lastUserMessage?.content;
 
   const isInputValid =
-    input.trim().length >= 2 && input.trim().length <= 5000 && !isLoading;
+    input.trim().length >= 3 &&
+    input.trim().length <= 5000 &&
+    !isLoading &&
+    !isDuplicate;
 
   return (
     <>
