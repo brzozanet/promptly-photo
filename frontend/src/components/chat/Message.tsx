@@ -44,6 +44,20 @@ export function Message({ role, content, timestamp }: Message) {
               li: ({ children }) => (
                 <li className="leading-relaxed">{children}</li>
               ),
+              a: ({ children }) => (
+                <a
+                  className="text-cyan-300 font-bold underline cursor-pointer"
+                  href="https://fotowarsztaty.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {children}
+                </a>
+              ),
+
+              hr: ({ children }) => (
+                <hr className="border-sky-500">{children}</hr>
+              ),
             }}
           >
             {content}
@@ -72,9 +86,3 @@ export function Message({ role, content, timestamp }: Message) {
     </div>
   );
 }
-
-// TODO:
-// Zrób funkcję, która:
-// 1. rozbije tekst np. const parts = message.content.split("fotowarsztaty.com");
-// 2. wyrenderuje parts[0], potem <a href="https://fotowarsztaty.com" target="_blank" rel="noreferrer">fotowarsztaty.com</a>, a potem parts[1].
-// W ten sposób fragment fotowarsztaty.com w tekście zostanie zastąpiony komponentem <a>, a reszta treści pozostanie niezmieniona.
