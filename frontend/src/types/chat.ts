@@ -8,11 +8,11 @@ export interface Message {
 export interface ChatState {
   messages: Message[];
   isLoading: boolean;
-  error: string | null;
+  error: boolean;
   addMessage: (message: Message) => void;
   clearMessages: () => void;
   setIsLoading: (loading: boolean) => void;
-  setError: (error: string | null) => void;
+  setError: (error: boolean) => void;
 }
 
 export interface ChatRequest {
