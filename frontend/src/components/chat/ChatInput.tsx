@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-// import { Spinner } from "@/components/ui/spinner";
 import { useChatStore } from "@/store/chatStore";
 import { nanoid } from "nanoid";
 import { askAI } from "@/services/chatService";
 import { ThreeCircles } from "react-loader-spinner";
+// import { Spinner } from "@/components/ui/spinner";
 
 export function ChatInput() {
   const [input, setInput] = useState<string>("");
   const { addMessage, setIsLoading } = useChatStore();
   const messages = useChatStore((state) => state.messages);
   const isLoading = useChatStore((state) => state.isLoading);
-  // const randomText = loremIpsum({ count: 7, units: "sentences" });
 
   const sendPrompt = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,7 +44,14 @@ export function ChatInput() {
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter") {
+      sendPrompt(event as unknown as React.SubmitEvent<HTMLFormElement>);
+    }
+  };
+
   // NOTE: inactive after integration with OpenAI API
+  // const randomText = loremIpsum({ count: 7, units: "sentences" });
   // const fakeAssistantReply = () => {
   //   setTimeout(() => {
   //     addMessage({
@@ -91,6 +97,7 @@ export function ChatInput() {
           disabled={isLoading}
           value={input}
           onChange={(event) => setInput(event?.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <Button
           className="w-24 bg-blue-500 shadow-lg shadow-black-500/50 hover:bg-emerald-500 disabled:opacity-50 px-4 py-2 rounded-md font-bold self-end cursor-pointer disabled:cursor-not-allowed"
